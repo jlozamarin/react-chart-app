@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from "react"; // useState, useEffect
-import BarChart from "./components/BarChart"; // bar chart component
-import LineChart from "./components/LineChart"; // line chart component
-import ScatterChart from "./components/ScatterChart"; // scatter chart component
-import BubbleChart from "./components/BubbleChart"; // bubble chart component
-import financialData from "./data/financial_data.json"; // financial data
+import BarChart from "./components/BarChart"; // import BarChart component
+import LineChart from "./components/LineChart"; // import LineChart component
+import ScatterChart from "./components/ScatterChart"; // import ScatterChart component
+import BubbleChart from "./components/BubbleChart"; // import BubbleChart component
 
 // app components
 const App = () => {
-  const [data, setData] = useState(null);
+  const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    setData(financialData); 
-  }, []);
+    fetch("/data.json") // fetch data from JSON file
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to retrieve data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setChartData(data); 
+      })
+      .catch((error) => { // catch any errors
+        console.error("Error retrieving the data:", error);
+      });
+  }, []); 
 
-  if (!data) return <div>Loading Financial Data...</div>; // loading message
+  if (!chartData) return <div>Loading Financial Data...</div>; // display a loading message 
 
-  const { months, sales, profits, expenses } = data; 
+  const { months, sales, profits, expenses } = chartData;
 
-// dynamic chart dashboard
   return (
     <div>
       <h1>Dynamic Chart Dashboard</h1>

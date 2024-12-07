@@ -1,7 +1,6 @@
 import React from "react";
 import ChartComponent from "./ChartComponent";
 
-// line chart component
 const LineChart = ({ months, profits }) => {
   const data = {
     labels: months,
@@ -9,20 +8,38 @@ const LineChart = ({ months, profits }) => {
       {
         label: "Monthly Profits",
         data: profits,
-        borderColor: "rgba(220, 198, 224, 0.8)",    // lavender border color
-        backgroundColor: "rgba(220, 198, 224, 0.3)", // lavender fill color
-        fill: true,
-        tension: 0.4, // smooth line
+        borderColor: "rgba(75, 192, 192, 0.8)", // teal
+        backgroundColor: "rgba(75, 192, 192, 0.2)", 
+        tension: 0.4, 
       },
     ],
   };
-// options for line chart
+
   const options = {
     responsive: true,
     plugins: {
       legend: {
         display: true,
         position: "top",
+      },
+      tooltip: {
+        enabled: true, //tooltips
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 12,
+          },
+        },
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 12,
+          },
+        },
       },
     },
   };

@@ -1,7 +1,6 @@
 import React from "react";
 import ChartComponent from "./ChartComponent";
 
-// bubble chart component
 const BubbleChart = ({ expenses, profits, sales }) => {
   const data = {
     datasets: [
@@ -10,20 +9,29 @@ const BubbleChart = ({ expenses, profits, sales }) => {
         data: expenses.map((expense, i) => ({
           x: expense,
           y: profits[i],
-          r: sales[i] / 50, // scale bubble size
+          r: sales[i] / 50, 
         })),
-        backgroundColor: "rgba(220, 198, 224, 0.8)", // lavender background color
-        borderColor: "rgba(220, 198, 224, 1)",       // lavender border color
+        backgroundColor: "rgba(153, 102, 255, 0.8)", // lavender color
+        borderColor: "rgba(153, 102, 255, 1)",
       },
     ],
   };
-// options for bubble chart
+
   const options = {
     responsive: true,
     plugins: {
       legend: {
         display: true,
         position: "top",
+      },
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          label: function (context) {
+            const { raw } = context;
+            return `(${raw.x}, ${raw.y}), Size: ${raw.r}`;
+          },
+        },
       },
     },
     scales: {

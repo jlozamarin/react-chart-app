@@ -1,7 +1,6 @@
 import React from "react";
 import ChartComponent from "./ChartComponent";
 
-// scatter chart component
 const ScatterChart = ({ expenses, profits }) => {
   const data = {
     datasets: [
@@ -11,18 +10,26 @@ const ScatterChart = ({ expenses, profits }) => {
           x: expense,
           y: profits[i],
         })),
-        backgroundColor: "rgba(220, 198, 224, 0.8)", // lavender background color
-        borderColor: "rgba(220, 198, 224, 1)",       // lavender border color
+        backgroundColor: "rgba(255, 99, 132, 0.8)", // red
       },
     ],
   };
-// options for scatter chart
+
   const options = {
     responsive: true,
     plugins: {
       legend: {
         display: true,
         position: "top",
+      },
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          label: function (context) {
+            const { raw } = context;
+            return `(${raw.x}, ${raw.y})`;
+          },
+        },
       },
     },
     scales: {
